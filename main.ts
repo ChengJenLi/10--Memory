@@ -10,11 +10,7 @@ function 燈數 (num: number, 亮度: number) {
 }
 input.onButtonPressed(Button.A, function () {
     if (run == 2) {
-        if (user_list[answer] == 0) {
-            user_list[answer] = 1
-        } else {
-            user_list[answer] = 0
-        }
+        List_U[answer] = !(List_U[answer])
     }
 })
 input.onButtonPressed(Button.AB, function () {
@@ -24,7 +20,7 @@ input.onButtonPressed(Button.AB, function () {
         answer = 0
     } else if (run == 2) {
         for (let index = 0; index <= 24; index++) {
-            if (list[index] != user_list[index]) {
+            if (List_G[index] != List_U[index]) {
                 run = 0
                 basic.showNumber(score)
             }
@@ -39,7 +35,7 @@ input.onButtonPressed(Button.B, function () {
     if (run == 2) {
         basic.clearScreen()
         for (let index = 0; index <= 24; index++) {
-            if (user_list[index] == 1) {
+            if (List_U[index]) {
                 燈數(index + 1, 30)
             }
         }
@@ -52,10 +48,10 @@ input.onButtonPressed(Button.B, function () {
 })
 let a = 0
 let n = 0
-let list: number[] = []
+let List_G: boolean[] = []
 let score = 0
 let answer = 0
-let user_list: number[] = []
+let List_U: boolean[] = []
 let y = 0
 let x = 0
 let run = 0
@@ -63,17 +59,17 @@ run = 0
 basic.forever(function () {
     if (run == 1) {
         basic.clearScreen()
-        list = []
-        user_list = []
+        List_G = []
+        List_U = []
         for (let index = 0; index < 25; index++) {
-            list.push(0)
-            user_list.push(0)
+            List_G.push(false)
+            List_U.push(false)
         }
         n = 0
         while (n < 3) {
             a = randint(0, 24)
-            if (list[a] == 0) {
-                list[a] = 1
+            if (!(List_G[a])) {
+                List_G[a] = true
                 n += 1
                 燈數(a + 1, 255)
             }
